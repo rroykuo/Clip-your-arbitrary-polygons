@@ -78,7 +78,7 @@ void Process(int ClippingType){
         if (PolyClip::PolygonOperation::Mark(polygon1, polygon2,
                                              possible_result, PolyClip::MarkDifferentiate))
         {
-            results = PolyClip::PolygonOperation::DifferentiateResults(polygon1);
+            results = PolyClip::PolygonOperation::DifferentiateResults(polygon2);
             for (auto & result : results){
                 for (auto p : result)
                     std::cout << "(" << p.x_ << ", " << p.y_ << ")" << "---";

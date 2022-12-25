@@ -48,7 +48,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             if(VerticesCnt1 == VerticesNumOfPoly1){
                 RenderPoly1Flag = true;
                 printf("\n");
-                printf("Click Right Button Of Mouse To Process\n");
+                printf("Click Right Button Of Mouse To Process\n\n");
 //                process_flag = true;
             }
         }
@@ -125,7 +125,7 @@ int main(int argc, const char * argv[]) {
 
     printf("\nEnter the Vertex number of subject polygon: ");
     std::cin>>VerticesNumOfPoly2;
-    printf("\n\nEnter the Vertex number of clipping polygon: ");
+    printf("\nEnter the Vertex number of clipping polygon: ");
     std::cin>>VerticesNumOfPoly1;
     printf("\n");
 
