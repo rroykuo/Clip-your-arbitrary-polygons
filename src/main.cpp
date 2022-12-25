@@ -21,8 +21,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             double xpos, ypos;
             //getting cursor position
             glfwGetCursorPos(window, &xpos, &ypos);
+            xpos = xpos/480 -1;
+            ypos = -ypos/390 + 1;
             std::cout << "Clipping polygon's " << VerticesCnt1+1 << " th position at ("
-            << xpos/960 << " , " << ypos/780 << ")" << " \n";
+            << xpos << " , " << ypos << ")" << " \n";
             vertices1.emplace_back(xpos, ypos);
             VerticesCnt1++;
             if(VerticesCnt1 == VerticesNumOfPoly1){
@@ -33,8 +35,10 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             double xpos, ypos;
             //getting cursor position
             glfwGetCursorPos(window, &xpos, &ypos);
+            xpos = xpos/480 -1;
+            ypos = -ypos/390 + 1;
             std::cout << "Subject polygon's " << VerticesCnt2+1 << " th position at ("
-            << xpos/960 << " , " << ypos/780 << ")" << " \n";
+            << xpos << " , " << ypos << ")" << " \n";
             vertices2.emplace_back(xpos, ypos);
             VerticesCnt2++;
             if(VerticesCnt2 == VerticesNumOfPoly2){
