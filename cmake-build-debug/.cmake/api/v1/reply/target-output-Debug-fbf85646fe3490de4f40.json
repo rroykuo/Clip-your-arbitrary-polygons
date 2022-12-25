@@ -106,7 +106,9 @@
 			},
 			"sourceIndexes" : 
 			[
-				1
+				1,
+				4,
+				6
 			]
 		}
 	],
@@ -174,14 +176,18 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				4,
+				6
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				2
+				2,
+				3,
+				5
 			]
 		}
 	],
@@ -201,8 +207,30 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/hello.h",
+			"path" : "src/PolygonUtils.h",
 			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/Polygon.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/Polygon.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/PolygonClipping.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/PolygonClipping.cpp",
+			"sourceGroupIndex" : 0
 		}
 	],
 	"type" : "EXECUTABLE"

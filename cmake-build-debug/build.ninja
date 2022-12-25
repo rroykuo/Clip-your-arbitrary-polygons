@@ -60,6 +60,20 @@ build CMakeFiles/output.dir/src/main.cpp.o: CXX_COMPILER__output_Debug /Users/ro
   OBJECT_DIR = CMakeFiles/output.dir
   OBJECT_FILE_DIR = CMakeFiles/output.dir/src
 
+build CMakeFiles/output.dir/src/Polygon.cpp.o: CXX_COMPILER__output_Debug /Users/roy/nycu/nsd/proj/Clip-your-arbitrary-polygons/src/Polygon.cpp || cmake_object_order_depends_target_output
+  DEP_FILE = CMakeFiles/output.dir/src/Polygon.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu++17
+  INCLUDES = -I/opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/output.dir
+  OBJECT_FILE_DIR = CMakeFiles/output.dir/src
+
+build CMakeFiles/output.dir/src/PolygonClipping.cpp.o: CXX_COMPILER__output_Debug /Users/roy/nycu/nsd/proj/Clip-your-arbitrary-polygons/src/PolygonClipping.cpp || cmake_object_order_depends_target_output
+  DEP_FILE = CMakeFiles/output.dir/src/PolygonClipping.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu++17
+  INCLUDES = -I/opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/output.dir
+  OBJECT_FILE_DIR = CMakeFiles/output.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target output
@@ -68,7 +82,7 @@ build CMakeFiles/output.dir/src/main.cpp.o: CXX_COMPILER__output_Debug /Users/ro
 #############################################
 # Link the executable output
 
-build output: CXX_EXECUTABLE_LINKER__output_Debug CMakeFiles/output.dir/src/glad.c.o CMakeFiles/output.dir/src/main.cpp.o | /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib /opt/homebrew/Cellar/glfw/3.3.8/lib/libglfw.3.dylib
+build output: CXX_EXECUTABLE_LINKER__output_Debug CMakeFiles/output.dir/src/glad.c.o CMakeFiles/output.dir/src/main.cpp.o CMakeFiles/output.dir/src/Polygon.cpp.o CMakeFiles/output.dir/src/PolygonClipping.cpp.o | /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib /opt/homebrew/Cellar/glfw/3.3.8/lib/libglfw.3.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/Cellar/glew/2.2.0_1/include/GL -Wl,-rpath,/opt/homebrew/Cellar/glfw/3.3.8/include/GLFW  /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib  /opt/homebrew/Cellar/glfw/3.3.8/lib/libglfw.3.dylib  -framework OpenGL  -framework GLUT
   LINK_PATH = -L/opt/homebrew/Cellar/glew/2.2.0_1/include/GL   -L/opt/homebrew/Cellar/glfw/3.3.8/include/GLFW

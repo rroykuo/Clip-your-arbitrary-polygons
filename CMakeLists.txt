@@ -17,7 +17,7 @@ set(GLEW_LINK /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib)
 set(GLFW_LINK /opt/homebrew/Cellar/glfw/3.3.8/lib/libglfw.3.dylib)
 link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 
-add_executable(output src/glad.c src/main.cpp)
+add_executable(output src/glad.c src/main.cpp src/PolygonUtils.h src/Polygon.h src/Polygon.cpp src/PolygonClipping.h src/PolygonClipping.cpp)
 
 
 if (APPLE)
