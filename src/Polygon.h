@@ -26,7 +26,7 @@ namespace PolyClip{
         // insert vertex to polygon on specific position
         void Insert(Vertex* new_v, Vertex *pos);
         void Insert(const Point2d& vertex, Vertex *pos);
-        void Insert(float x, float y, Vertex* pos);
+        void Insert(double x, double y, Vertex* pos);
 
         // delete vertex on specific position
         void Remove(Vertex* pos);

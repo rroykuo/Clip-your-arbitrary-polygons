@@ -10,24 +10,14 @@
 std::vector<std::vector<PolyClip::Point2d> > results;
 std::vector<PolyClip::Point2d> vertices1;
 std::vector<PolyClip::Point2d> vertices2;
-
+extern bool process_flag;
 
 void Process(int ClippingType){
 
 
-    vertices1.emplace_back(10.0, 10.0);
-    vertices1.emplace_back(10.0, 100.0);
-    vertices1.emplace_back(100.0, 100.0);
-    vertices1.emplace_back(100.0, 10.0);
+
     PolyClip::Polygon polygon1(vertices1);
-
-
-    vertices2.emplace_back(10, 100);
-    vertices2.emplace_back(10, 150);
-    vertices2.emplace_back(100, 150);
-    vertices2.emplace_back(100, 100);
     PolyClip::Polygon polygon2(vertices2);
-
 
     std::cout << "<-------------------- Phase1: Intersection -------------------->\n";
     PolyClip::PolygonOperation::DetectIntersection(polygon1, polygon2);
@@ -42,8 +32,8 @@ void Process(int ClippingType){
         if (PolyClip::PolygonOperation::Mark(polygon1, polygon2,
                                              possible_result, PolyClip::MarkIntersection)){
             results = PolyClip::PolygonOperation::IntersectionResults(polygon1);
-            for (int i = 0; i<results.size(); ++i){
-                for (auto p : results[i])
+            for (auto & result : results){
+                for (auto p : result)
                     std::cout << "(" << p.x_ << ", " << p.y_ << ")" << "---";
                 std::cout << "\n";
             }
@@ -107,6 +97,7 @@ void Process(int ClippingType){
         }
 
     }
+    process_flag = false;
 
 }
 

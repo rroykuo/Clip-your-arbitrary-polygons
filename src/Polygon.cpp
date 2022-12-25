@@ -76,7 +76,7 @@ void PolyClip::Polygon::Insert(Vertex *new_v, Vertex *pos) {
     vertexNum_++;
 }
 
-void PolyClip::Polygon::Insert(float x, float y, Vertex *pos) {
+void PolyClip::Polygon::Insert(double x, double y, Vertex *pos) {
     auto * new_v = new Vertex(x, y);
     auto next_v = pos->next_;
 

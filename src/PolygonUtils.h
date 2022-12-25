@@ -7,19 +7,19 @@
 
 namespace PolyClip{
     struct Point2d{
-        float x_, y_;
+        double x_, y_;
         Point2d():x_(0.0), y_(0.0){}
-        Point2d(float x, float y):x_(x), y_(y){}
+        Point2d(double x, double y):x_(x), y_(y){}
     };
 
     struct Vertex{
-        float x_, y_;
+        double x_, y_;
         Vertex * next_;
         Vertex * prev_;
         bool intersect_;
         bool entryExit_;
         Vertex * neighbor_;
-        float alpha_;
+        double alpha_;
         bool processed;
 
         Vertex()
@@ -32,7 +32,7 @@ namespace PolyClip{
             next_(nullptr), prev_(nullptr),
             neighbor_(nullptr), intersect_(false),
             entryExit_(false), processed(false){}
-        Vertex(float x, float y)
+        Vertex(double x, double y)
             :x_(x), y_(y), alpha_(0.0),
             next_(nullptr), prev_(nullptr),
             neighbor_(nullptr), intersect_(false),
@@ -41,8 +41,8 @@ namespace PolyClip{
     // This object is used for sort intersection vertices so that we can insert these at correct order
     struct VertexPtrDistance{
         Vertex * ptr;
-        float distance;
-        VertexPtrDistance(Vertex* vPtr, float dis):ptr(vPtr),distance(dis){}
+        double distance;
+        VertexPtrDistance(Vertex* vPtr, double dis):ptr(vPtr),distance(dis){}
     };
     struct SortVertexPtrDistance{
         bool operator()(const VertexPtrDistance& v1, const VertexPtrDistance& v2){
@@ -88,8 +88,8 @@ namespace PolyClip{
         // Shoelace formula
         //this formula only could calculate non-self-intersecting polygon
         //so the instance only could be convex or concave
-        static float CalculatePolygonArea(const std::vector<Point2d>& polygon){
-            float a = 0.0, b = 0.0;
+        static double CalculatePolygonArea(const std::vector<Point2d>& polygon){
+            double a = 0.0, b = 0.0;
             for(int i=0; i<polygon.size(); i++){
                 if (i == polygon.size() - 1){
                     a += polygon[i].x_ * polygon[0].y_;

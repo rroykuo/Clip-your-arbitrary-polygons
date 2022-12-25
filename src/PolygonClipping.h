@@ -34,8 +34,8 @@ namespace PolyClip{
     private:
         static bool LineSegmentIntersection(Point2d& p1, Point2d& p2,
                                             Point2d& q1, Point2d& q2,
-                                            float& alphaP, float& alphaQ);
-        static Vertex CreateVertex(const Point2d& p1, const Point2d& p2, float alpha);
+                                            double& alphaP, double& alphaQ);
+        static Vertex CreateVertex(const Point2d& p1, const Point2d& p2, double alpha);
         // Determine the point is inside the polygon or not
         static bool Pnpoly(const Point2d& p, Polygon& polygon);
     };

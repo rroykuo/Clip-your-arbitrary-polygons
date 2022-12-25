@@ -19,7 +19,7 @@ void PolyClip::PolygonOperation::DetectIntersection
         for (auto iter2 = sub_poly.begin(); loop2_count < loop2_total; ++loop2_count) {
             auto next_check2 = iter2.next();
 
-            float alphaP = -1.0, alphaQ = -1.0;
+            double alphaP = -1.0, alphaQ = -1.0;
             Point2d p1((*iter1).x_, (*iter1).y_);
             Point2d p2((*iter1).next_->x_, (*iter1).next_->y_);
             Point2d q1((*iter2).x_, (*iter2).y_);
@@ -55,7 +55,7 @@ void PolyClip::PolygonOperation::DetectIntersection
                 // will destroy correct order.
                 // clip_poly.Insert(I1, iter1.eval());
                 // calculate the distance between intersection point and edge start point
-                float distance = (I1->x_ - (*iter1).x_) * (I1->x_ - (*iter1).x_) +
+                double distance = (I1->x_ - (*iter1).x_) * (I1->x_ - (*iter1).x_) +
                         (I1->y_ - (*iter1).y_) * (I1->y_ - (*iter1).y_);
 
                 VertexPtrDistance vpt(I1, distance);
@@ -343,8 +343,8 @@ std::vector<std::vector<PolyClip::Point2d> > PolyClip::PolygonOperation::Differe
 bool PolyClip::PolygonOperation::LineSegmentIntersection(
         Point2d& p1, Point2d& p2,
         Point2d& q1, Point2d& q2,
-        float& alphaP, float& alphaQ){
-    const auto perturbation = static_cast<float>(1.001);
+        double& alphaP, double& alphaQ){
+    const auto perturbation = static_cast<double>(1.001);
 
     Point2d vec_p1_q1(p1.x_ - q1.x_, p1.y_ - q1.y_);
     Point2d vec_p2_q1(p2.x_ - q1.x_, p2.y_ - q1.y_);
@@ -352,8 +352,8 @@ bool PolyClip::PolygonOperation::LineSegmentIntersection(
     // vec_q2_q1 rotation 90
     Point2d vec_q2_q1_90(-vec_q2_q1.y_, vec_q2_q1.x_);
     // dot product
-    float WEC_P1 = vec_p1_q1.x_*vec_q2_q1_90.x_ + vec_p1_q1.y_*vec_q2_q1_90.y_;
-    float WEC_P2 = vec_p2_q1.x_*vec_q2_q1_90.x_ + vec_p2_q1.y_*vec_q2_q1_90.y_;
+    double WEC_P1 = vec_p1_q1.x_*vec_q2_q1_90.x_ + vec_p1_q1.y_*vec_q2_q1_90.y_;
+    double WEC_P2 = vec_p2_q1.x_*vec_q2_q1_90.x_ + vec_p2_q1.y_*vec_q2_q1_90.y_;
 
     if(WEC_P1 == 0.0){
         // add perturbation
@@ -378,8 +378,8 @@ bool PolyClip::PolygonOperation::LineSegmentIntersection(
         // vec_p2_p1 rotation 90
         Point2d vec_p2_p1_90(-vec_p2_p1.y_, vec_p2_p1.x_);
         // dot product
-        float WEC_Q1 = vec_q1_p1.x_*vec_p2_p1_90.x_ + vec_q1_p1.y_*vec_p2_p1_90.y_;
-        float WEC_Q2 = vec_q2_p1.x_*vec_p2_p1_90.x_ + vec_q2_p1.y_*vec_p2_p1_90.y_;
+        double WEC_Q1 = vec_q1_p1.x_*vec_p2_p1_90.x_ + vec_q1_p1.y_*vec_p2_p1_90.y_;
+        double WEC_Q2 = vec_q2_p1.x_*vec_p2_p1_90.x_ + vec_q2_p1.y_*vec_p2_p1_90.y_;
 
         if(WEC_Q1 == 0){
             // add perturbation
@@ -409,10 +409,10 @@ bool PolyClip::PolygonOperation::LineSegmentIntersection(
 }
 
 PolyClip::Vertex PolyClip::PolygonOperation::CreateVertex
-    (const Point2d& p1, const Point2d& p2, float alpha){
+    (const Point2d& p1, const Point2d& p2, double alpha){
 
-    float x = alpha*(p2.x_ - p1.x_) + p1.x_;
-    float y = alpha*(p2.y_ - p1.y_) + p1.y_;
+    double x = alpha*(p2.x_ - p1.x_) + p1.x_;
+    double y = alpha*(p2.y_ - p1.y_) + p1.y_;
     return {x, y};
 }
 

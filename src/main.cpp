@@ -7,6 +7,43 @@ extern std::vector<std::vector<PolyClip::Point2d> > results;
 extern std::vector<PolyClip::Point2d> vertices1;
 extern std::vector<PolyClip::Point2d> vertices2;
 
+int VerticesNumOfPoly1, VerticesNumOfPoly2;
+int VerticesCnt1 = 0, VerticesCnt2 = 0;
+bool process_flag = false;
+
+//static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+////    std::cout << "Position: (" << xpos << "," << ypos << ")" <<" \n";
+//}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods){
+    if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+        if(VerticesCnt1 < VerticesNumOfPoly1){
+            double xpos, ypos;
+            //getting cursor position
+            glfwGetCursorPos(window, &xpos, &ypos);
+            std::cout << "Clipping polygon's " << VerticesCnt1+1 << " th position at ("
+            << xpos/960 << " , " << ypos/780 << ")" << " \n";
+            vertices1.emplace_back(xpos, ypos);
+            VerticesCnt1++;
+            if(VerticesCnt1 == VerticesNumOfPoly1){
+                printf("\n");
+            }
+        }
+        else if(VerticesCnt2 < VerticesNumOfPoly2){
+            double xpos, ypos;
+            //getting cursor position
+            glfwGetCursorPos(window, &xpos, &ypos);
+            std::cout << "Subject polygon's " << VerticesCnt2+1 << " th position at ("
+            << xpos/960 << " , " << ypos/780 << ")" << " \n";
+            vertices2.emplace_back(xpos, ypos);
+            VerticesCnt2++;
+            if(VerticesCnt2 == VerticesNumOfPoly2){
+                process_flag = true;
+                printf("\n");
+            }
+        }
+    }
+}
 
 void Render(){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -30,16 +67,14 @@ int main(int argc, const char * argv[]) {
            "Differentiate: 2\n\n"
            "Enter the number: ");
 
-    std::string ClipType;
+    int ClipType;
     std::cin >> ClipType;
 
-
-
     const char* ClipTitle;
-    if(std::stoi(ClipType) == 0){
+    if(ClipType == 0){
         ClipTitle = "Intersection";
     }
-    else if (std::stoi(ClipType) == 1){
+    else if (ClipType == 1){
         ClipTitle = "Union";
     }
     else{
@@ -50,8 +85,14 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
 
-    // Process the polygon
-    Process(std::stoi(ClipType));
+
+
+    printf("\n\nEnter the Vertex number of clipping polygon: ");
+    std::cin>>VerticesNumOfPoly1;
+    printf("\nEnter the Vertex number of subject polygon: ");
+    std::cin>>VerticesNumOfPoly2;
+    printf("\n");
+
 
     GLFWwindow* win = glfwCreateWindow(960, 780, ClipTitle, nullptr, nullptr);
     if(!win) {
@@ -63,11 +104,15 @@ int main(int argc, const char * argv[]) {
     }
     int width, height;
     glfwGetFramebufferSize(win, &width, &height);
-
     glViewport(0, 0, width, height);
     glfwMakeContextCurrent(win);
+    glfwSetMouseButtonCallback(win, mouse_button_callback);
     while(!glfwWindowShouldClose(win)){
         glfwPollEvents();
+        if(process_flag){
+            // Process the polygon
+            Process(ClipType);
+        }
         Render();
         glfwSwapBuffers(win);
     }
