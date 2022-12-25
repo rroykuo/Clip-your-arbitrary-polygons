@@ -187,7 +187,8 @@
 			[
 				2,
 				3,
-				5
+				5,
+				7
 			]
 		}
 	],
@@ -231,6 +232,11 @@
 			"compileGroupIndex" : 1,
 			"path" : "src/PolygonClipping.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ProcessPolygon.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"
