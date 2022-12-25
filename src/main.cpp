@@ -4,6 +4,8 @@
 #include "PolygonUtils.h"
 #include "PolygonClipping.h"
 
+
+
 void Render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -21,26 +23,9 @@ void Render()
 }
 
 int main(int argc, const char * argv[]) {
-//    GLFWwindow* win;
-//    if(!glfwInit()) {
-//        return -1;
-//    }
-//    win = glfwCreateWindow(480, 320, "Triangle", NULL, NULL);
-//    if(!win) {
-//        glfwTerminate();
-//        exit(EXIT_FAILURE);
-//    }
-//    if(!glewInit()) {
-//        return -1;
-//    }
-//    glfwMakeContextCurrent(win);
-//    while(!glfwWindowShouldClose(win)){
-//        Render();
-//        glfwSwapBuffers(win);
-//        glfwPollEvents();
-//    }
-//    glfwTerminate();
-//    exit(EXIT_SUCCESS);
+
+    int ClipType = PolyClip::MarkIntersection;
+
     std::vector<PolyClip::Point2d> vertices1;
     vertices1.emplace_back(10.0, 10.0);
     vertices1.emplace_back(10.0, 100.0);
@@ -83,6 +68,47 @@ int main(int argc, const char * argv[]) {
             }
         }
     }
+
+
+    const char* ClipTitle;
+    if(ClipType == 0){
+        ClipTitle = "Intersection";
+    }
+    else if (ClipType == 1){
+        ClipTitle = "Union";
+    }
+    else{
+        ClipTitle = "Differentiate";
+    }
+
+    if(!glfwInit()) {
+        return -1;
+    }
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    
+    GLFWwindow* win = glfwCreateWindow(960, 780, ClipTitle, nullptr, nullptr);
+    if(!win) {
+        glfwTerminate();
+        exit(EXIT_FAILURE);
+    }
+    if(!glewInit()) {
+        return -1;
+    }
+    int width, height;
+    glfwGetFramebufferSize(win, &width, &height);
+
+    glViewport(0, 0, width, height);
+    glfwMakeContextCurrent(win);
+    while(!glfwWindowShouldClose(win)){
+        Render();
+        glfwSwapBuffers(win);
+        glfwPollEvents();
+    }
+    glfwTerminate();
+    exit(EXIT_SUCCESS);
 
     return 0;
 }
