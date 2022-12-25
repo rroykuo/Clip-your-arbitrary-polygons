@@ -10,6 +10,9 @@ extern std::vector<PolyClip::Point2d> vertices2;
 int VerticesNumOfPoly1, VerticesNumOfPoly2;
 int VerticesCnt1 = 0, VerticesCnt2 = 0;
 bool process_flag = false;
+bool RenderPoly1Flag = false;
+bool RenderPoly2Flag = false;
+bool RenderResultFlag = false;
 
 //static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
 ////    std::cout << "Position: (" << xpos << "," << ypos << ")" <<" \n";
@@ -17,21 +20,7 @@ bool process_flag = false;
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods){
     if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
-        if(VerticesCnt1 < VerticesNumOfPoly1){
-            double xpos, ypos;
-            //getting cursor position
-            glfwGetCursorPos(window, &xpos, &ypos);
-            xpos = xpos/480 -1;
-            ypos = -ypos/390 + 1;
-            std::cout << "Clipping polygon's " << VerticesCnt1+1 << " th position at ("
-            << xpos << " , " << ypos << ")" << " \n";
-            vertices1.emplace_back(xpos, ypos);
-            VerticesCnt1++;
-            if(VerticesCnt1 == VerticesNumOfPoly1){
-                printf("\n");
-            }
-        }
-        else if(VerticesCnt2 < VerticesNumOfPoly2){
+        if(VerticesCnt2 < VerticesNumOfPoly2){
             double xpos, ypos;
             //getting cursor position
             glfwGetCursorPos(window, &xpos, &ypos);
@@ -42,26 +31,70 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             vertices2.emplace_back(xpos, ypos);
             VerticesCnt2++;
             if(VerticesCnt2 == VerticesNumOfPoly2){
-                process_flag = true;
                 printf("\n");
+                RenderPoly2Flag = true;
             }
+        }
+        else if(VerticesCnt1 < VerticesNumOfPoly1){
+            double xpos, ypos;
+            //getting cursor position
+            glfwGetCursorPos(window, &xpos, &ypos);
+            xpos = xpos/480 -1;
+            ypos = -ypos/390 + 1;
+            std::cout << "Clipping polygon's " << VerticesCnt1+1 << " th position at ("
+            << xpos << " , " << ypos << ")" << " \n";
+            vertices1.emplace_back(xpos, ypos);
+            VerticesCnt1++;
+            if(VerticesCnt1 == VerticesNumOfPoly1){
+                RenderPoly1Flag = true;
+                printf("\n");
+                printf("Click Right Button Of Mouse To Process\n");
+//                process_flag = true;
+            }
+        }
+    }
+    if(button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS){
+        if(VerticesCnt2 == VerticesNumOfPoly2 && VerticesCnt1 == VerticesNumOfPoly1){
+//            RenderPoly1Flag = false;
+//            RenderPoly2Flag = false;
+            process_flag = true;
+
         }
     }
 }
 
-void Render(){
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+void RenderPolygon2(){
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_TRIANGLES);{
-        glColor3f(1.0,0.0,0.0);
-        glVertex2f(0, .5);
-        glColor3f(0.0,1.0,0.0);
-        glVertex2f(-.5,-.5);
-        glColor3f(0.0, 0.0, 1.0);
-        glVertex2f(.5, -.5);
+    if(RenderPoly2Flag){
+        glColor4f(1.0,0.0,0.0, 0.1);
+        glBegin(GL_TRIANGLE_FAN);
+        for (int i=0; i<VerticesNumOfPoly2; i++){
+            glVertex3f(vertices2[i].x_, vertices2[i].y_, 0);
+        }
+        glEnd();
+        if(RenderPoly1Flag){
+            glBegin(GL_TRIANGLE_FAN);
+            glColor4f(0.0,0.0,1.0, 0.1);
+            for (int i=0; i<VerticesNumOfPoly1; i++){
+                glVertex3f(vertices1[i].x_, vertices1[i].y_, 0.5);
+            }
+            glEnd();
+        }
     }
-    glEnd();
+    if (RenderResultFlag){
+        for (auto & result : results){
+            glBegin(GL_TRIANGLE_FAN);
+            glColor4f(0.0,1.0,0.0, 0.1);
+            for (auto p : result)
+                glVertex3f(p.x_, p.y_, 1);
+            glEnd();
+        }
+
+    }
 }
+
 
 int main(int argc, const char * argv[]) {
 
@@ -90,11 +123,10 @@ int main(int argc, const char * argv[]) {
     }
 
 
-
-    printf("\n\nEnter the Vertex number of clipping polygon: ");
-    std::cin>>VerticesNumOfPoly1;
     printf("\nEnter the Vertex number of subject polygon: ");
     std::cin>>VerticesNumOfPoly2;
+    printf("\n\nEnter the Vertex number of clipping polygon: ");
+    std::cin>>VerticesNumOfPoly1;
     printf("\n");
 
 
@@ -117,7 +149,9 @@ int main(int argc, const char * argv[]) {
             // Process the polygon
             Process(ClipType);
         }
-        Render();
+        if(RenderPoly2Flag){
+            RenderPolygon2();
+        }
         glfwSwapBuffers(win);
     }
     glfwTerminate();

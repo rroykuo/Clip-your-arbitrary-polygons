@@ -11,6 +11,7 @@ std::vector<std::vector<PolyClip::Point2d> > results;
 std::vector<PolyClip::Point2d> vertices1;
 std::vector<PolyClip::Point2d> vertices2;
 extern bool process_flag;
+extern bool RenderResultFlag;
 
 void Process(int ClippingType){
 
@@ -98,7 +99,7 @@ void Process(int ClippingType){
 
     }
     process_flag = false;
-
+    RenderResultFlag = true;
 }
 
 #endif //CLIP_YOUR_ARBITRARY_POLYGONS_PROCESSPOLYGON_H
